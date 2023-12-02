@@ -4,7 +4,6 @@
   "description": "30 Days of JavaScript/TypeScript",
   "main": "index.js",
   "repository": "git@github.com:DeveloperAspire/TS30.git",
- 
   "author": "Franklin Okolie <franklinokolie86@gmail.com>",
   "license": "MIT",
   "devDependencies": {
