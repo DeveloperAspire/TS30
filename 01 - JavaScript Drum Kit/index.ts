@@ -12,7 +12,6 @@ class DrumKit {
   addEventListeners() {
     window.addEventListener("keydown", (e) => {
       const keyCode = e.key.toUpperCase().charCodeAt(0);
-      console.log(e);
       this.keys.forEach((key: any) => {
         if (+key.dataset.key !== keyCode) return;
 

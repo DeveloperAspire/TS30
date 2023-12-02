@@ -68,12 +68,11 @@
 
         addEventListeners() {
           window.addEventListener("keydown", (e) => {
-            console.log(e.key.toUpperCase().charCodeAt(0));
-            // this.keys.forEach((key) => {
-            //   if (+key.dataset.key !== e.key) return;
+            this.keys.forEach((key) => {
+              if (+key.dataset.key !== e.key) return;
 
-            //   this.playSound(e.key, key);
-            // });
+              this.playSound(e.key, key);
+            });
           });
         }
 
