@@ -12,11 +12,12 @@ class DrumKit {
   addEventListeners() {
     window.addEventListener("keydown", (e) => {
       const keyCode = e.key.toUpperCase().charCodeAt(0);
-      this.keys.forEach((key: any) => {
-        if (+key.dataset.key !== keyCode) return;
 
-        this.playSound(keyCode, key);
-      });
+      const key: HTMLDivElement | null = document.querySelector(
+        `div[data-key="${keyCode}"]`
+      );
+      if (!key) return;
+      this.playSound(keyCode, key);
     });
   }
 
