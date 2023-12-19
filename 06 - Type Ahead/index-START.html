@@ -43,9 +43,7 @@
                 (suggestion) =>
                   `<li> ${suggestion.city}, ${
                     suggestion.state
-                  } <span class="population">${+suggestion.population.toLocaleString(
-                    "en-US"
-                  )}<span></li>`
+                  } <span class="population">${Number(suggestion.population).toLocaleString()}<span></li>`
               )
               .join("");
 
