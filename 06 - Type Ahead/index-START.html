@@ -28,24 +28,28 @@
 
         addEventListener() {
           this.input.addEventListener("keyup", (e) => {
-            this.parentList.innerHTML = "";
-            const suggestions = this.cache.filter((city) =>
-              city.city.includes(e.target.value)
+            const suggestions = this.cache.filter(
+              (city) =>
+                city.city.toLowerCase().includes(e.target.value) ||
+                city.state.toLowerCase().includes(e.target.value) ||
+                city.city.includes(e.target.value) ||
+                city.state.includes(e.target.value)
             );
+
+            console.log(suggestions);
 
             const newSuggestions = suggestions
               .map(
                 (suggestion) =>
-                  `<li> ${suggestion.city}, ${suggestion.state} <span class="population">${suggestion.population}<span></li>`
+                  `<li> ${suggestion.city}, ${
+                    suggestion.state
+                  } <span class="population">${+suggestion.population.toLocaleString(
+                    "en-US"
+                  )}<span></li>`
               )
               .join("");
 
             this.parentList.innerHTML = newSuggestions;
-            const suggestionList = document.querySelectorAll("li");
-
-            suggestionList.forEach((suggestion) => {
-              console.log(suggestion.childNodes[0]);
-            });
           });
         }
 
@@ -56,8 +60,6 @@
             const cities = await result.json();
 
             this.cache = cities;
-
-            console.log(this.cache);
           } catch (error) {
             console.log(error);
           }
