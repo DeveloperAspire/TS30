@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Key Detection</title>
+    <script type="text/javascript" src="./cornify.js"></script>
+    <link rel="icon" href="https://fav.farm/🔥" />
+  </head>
+  <body>
+    <script>
+      let keyArrays = [];
+      let secretCode = "aspire";
+      window.addEventListener("keyup", (e) => {
+        if (keyArrays.length === 6) {
+          keyArrays.shift();
+        }
+        keyArrays.push(e.key);
+
+        if (keyArrays.join("").includes(secretCode)) {
+          cornify_add();
+          console.log("DING DING DING!!!")
+        }
+
+        console.log(keyArrays);
+      });
+    </script>
+  </body>
+</html>
