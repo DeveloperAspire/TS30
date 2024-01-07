@@ -63,8 +63,6 @@
       class Model {
         constructor() {
           this.items = [];
-
-          this.fetchTapas();
         }
 
         saveTapas(value) {
@@ -72,8 +70,15 @@
           localStorage.setItem("items", JSON.stringify(this.items));
         }
 
-        fetchTapas(value) {
+        saveBulkTapas(value) {
+          this.items = [...value];
+          localStorage.setItem("items", JSON.stringify(this.items));
+        }
+
+        fetchTapas() {
           const data = localStorage.getItem("items");
+
+          if (!data) return;
 
           const items = JSON.parse(data);
 
@@ -86,7 +91,6 @@
       const model = new Model();
 
       // VIEW
-
       class View {
         constructor() {
           this.input = document.querySelector('input[name="item"]');
@@ -108,7 +112,20 @@
             handler(item);
             this.input.value = "";
           });
-          
+        }
+
+        eventLoaded(handler) {
+          window.addEventListener("DOMContentLoaded", () => {
+            handler();
+          });
+        }
+
+        eventChanged(handler) {
+          this.platesList.addEventListener("click", (e) => {
+            if (!e.target.matches("input")) return;
+
+            handler(e.target.dataset.index);
+          });
         }
 
         render(data) {
@@ -146,8 +163,27 @@
         }
       };
 
+      const controlLoad = async () => {
+        try {
+          model.fetchTapas();
+          tapasView.render(model.items);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+      const controlEdit = async (index) => {
+        console.log(index);
+        const items = model.items;
+        items[index].done = !items[index].done;
+
+        model.saveBulkTapas(items);
+      };
+
       const init = () => {
         tapasView.eventHandlers(controlAddNew);
+        tapasView.eventLoaded(controlLoad);
+        tapasView.eventChanged(controlEdit);
       };
 
       init();
